@@ -77,7 +77,7 @@ public class LoginServiceImpl implements ILoginService {
 			// SleepUtils.sleep(time += 1000);
 			long millis = System.currentTimeMillis();
 			params.add(new BasicNameValuePair(LoginParaEnum.R.para(), String.valueOf(millis / 1579L)));
-			params.add(new BasicNameValuePair(LoginParaEnum._.para(), String.valueOf(millis)));
+			params.add(new BasicNameValuePair(LoginParaEnum.P_.para(), String.valueOf(millis)));
 			HttpEntity entity = httpClient.doGet(URLEnum.LOGIN_URL.getUrl(), params, true, null);
 
 			try {
@@ -108,7 +108,7 @@ public class LoginServiceImpl implements ILoginService {
 		params.add(new BasicNameValuePair(UUIDParaEnum.APP_ID.para(), UUIDParaEnum.APP_ID.value()));
 		params.add(new BasicNameValuePair(UUIDParaEnum.FUN.para(), UUIDParaEnum.FUN.value()));
 		params.add(new BasicNameValuePair(UUIDParaEnum.LANG.para(), UUIDParaEnum.LANG.value()));
-		params.add(new BasicNameValuePair(UUIDParaEnum._.para(), String.valueOf(System.currentTimeMillis())));
+		params.add(new BasicNameValuePair(UUIDParaEnum.P_.para(), String.valueOf(System.currentTimeMillis())));
 
 		HttpEntity entity = httpClient.doGet(URLEnum.UUID_URL.getUrl(), params, true, null);
 
@@ -309,7 +309,7 @@ public class LoginServiceImpl implements ILoginService {
 
 							}
 						} else {
-							JSONObject obj = webWxSync();
+							webWxSync();
 						}
 					} catch (Exception e) {
 						LOG.info(e.getMessage());
@@ -492,10 +492,10 @@ public class LoginServiceImpl implements ILoginService {
 				LOG.info(e.getMessage());
 				return;
 			}
-			//add by 默非默 2017-08-01 22:28:09
-			//如果登录被禁止时，则登录返回的message内容不为空，下面代码则判断登录内容是否为空，不为空则退出程序
+			// add by 默非默 2017-08-01 22:28:09
+			// 如果登录被禁止时，则登录返回的message内容不为空，下面代码则判断登录内容是否为空，不为空则退出程序
 			String msg = getLoginMessage(text);
-			if (!"".equals(msg)){
+			if (!"".equals(msg)) {
 				LOG.info(msg);
 				System.exit(0);
 			}
@@ -670,13 +670,14 @@ public class LoginServiceImpl implements ILoginService {
 
 	/**
 	 * 解析登录返回的消息，如果成功登录，则message为空
+	 * 
 	 * @param result
 	 * @return
 	 */
-	public String getLoginMessage(String result){
+	public String getLoginMessage(String result) {
 		String[] strArr = result.split("<message>");
 		String[] rs = strArr[1].split("</message>");
-		if (rs!=null && rs.length>1) {
+		if (rs != null && rs.length > 1) {
 			return rs[0];
 		}
 		return "";

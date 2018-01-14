@@ -21,6 +21,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.vdurmont.emoji.EmojiParser;
 
 import cn.zhouyafeng.itchat4j.utils.Config;
+import cn.zhouyafeng.itchat4j.utils.EWM;
+import cn.zhouyafeng.itchat4j.utils.QRcodeEncoder;
 import cn.zhouyafeng.itchat4j.utils.enums.OsNameEnum;
 
 /**
@@ -38,9 +40,11 @@ public class CommonTools {
 		switch (Config.getOsNameEnum()) {
 		case WINDOWS:
 			if (Config.getOsNameEnum().equals(OsNameEnum.WINDOWS)) {
-				Runtime runtime = Runtime.getRuntime();
+				// Runtime runtime = Runtime.getRuntime();
 				try {
-					runtime.exec("cmd /c start " + qrPath);
+					// runtime.exec("cmd /c start " + qrPath);
+					String cont = EWM.decodeImg(qrPath);
+					QRcodeEncoder.qRCodeCommon(cont, 3);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,7 +60,16 @@ public class CommonTools {
 				}
 			}
 			break;
-
+		case LINUX:
+			if (Config.getOsNameEnum().equals(OsNameEnum.LINUX)) {
+				try {
+					String cont = EWM.decodeImg(qrPath);
+					QRcodeEncoder.qRCodeCommon(cont, 3);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			break;
 		default:
 			break;
 		}

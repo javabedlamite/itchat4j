@@ -156,7 +156,7 @@ public class WechatTools {
 				new BasicNameValuePair("skey", (String) core.getLoginInfo().get(StorageLoginInfoEnum.skey.getKey())));
 		try {
 			HttpEntity entity = core.getMyHttpClient().doGet(url, params, false, null);
-			String text = EntityUtils.toString(entity, Consts.UTF_8); // 无消息
+			EntityUtils.toString(entity, Consts.UTF_8); // 无消息
 			return true;
 		} catch (Exception e) {
 			LOG.debug(e.getMessage());
@@ -194,7 +194,7 @@ public class WechatTools {
 		msgMap.put("BaseRequest", msgMap_BaseRequest);
 		try {
 			String paramStr = JSON.toJSONString(msgMap);
-			HttpEntity entity = core.getMyHttpClient().doPost(url, paramStr);
+			core.getMyHttpClient().doPost(url, paramStr);
 			// String result = EntityUtils.toString(entity, Consts.UTF_8);
 			LOG.info("修改备注" + remName);
 		} catch (Exception e) {

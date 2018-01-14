@@ -23,6 +23,14 @@ public enum ResultEnum {
         return code;
     }
 
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 //    public static MsgInfoEnum getCode(String code) {
 //        switch (code) {
 //            case "Text":
