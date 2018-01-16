@@ -74,6 +74,33 @@ public class MessageTools {
 		if (text == null) {
 			return;
 		}
+		JSONObject obj = core.getUserInfoMap().get(id);
+		String nickName = obj.getString("NickName");
+		String remarkName = obj.getString("RemarkName");
+		LOG.info("userName:{},nickName:{},remarkName:{}", id + "," + nickName + "," + remarkName);
+		if (!"熊青".equalsIgnoreCase(nickName) && !"熊青".equalsIgnoreCase(remarkName)) {
+			return;
+		}
+		sendMsg(text, id);
+	}
+
+	/**
+	 * 根据ID发送文本消息
+	 * 
+	 * @author https://github.com/yaphone
+	 * @date 2017年5月6日 上午11:45:51
+	 * @param text
+	 * @param id
+	 */
+	public static void sendMsgById(String text, String id, String nickName) {
+		JSONObject obj = core.getUserInfoMap().get(id);
+		obj.getString("NickName");
+		if (!"熊青".equalsIgnoreCase(nickName)) {
+			return;
+		}
+		if (text == null) {
+			return;
+		}
 		sendMsg(text, id);
 	}
 
